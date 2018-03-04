@@ -39,7 +39,7 @@
 			db.ref('images/').limitToLast(5).on('child_added', function(snapshot) {
 				a = snapshot.val();
 				img_text = '<th><img id="" src="data:image/png;base64,' + a.code +'" height="180" width="320"/></th>'
-				row_text = '<th>Number of people: </th><th>' + a.number.toString() + '</th>'
+				row_text = '<th>Number of people: </th><th>' + a.number.toString() + '</th></br>'
 				row_text += '<th>Number of people: </th><th>' + a.number.toString() + '</th>'
 
 				$("#stuff").prepend('<tr>' + img_text + row_text + '</tr>')
