@@ -69,7 +69,7 @@
 				a = snapshot.val();
 				
 				var blob = b64EncodeUnicode(a.code);
-				var blobUrl = URL.createObjectURL(blob);
+				var blobUrl = window.webkitURL.createObjectURL(blob);
 
 				var img = document.createElement('img');
 				img.src = blobUrl;
