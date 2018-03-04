@@ -17,6 +17,27 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+		<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+		<script>
+		// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyBwP1c6e5N4W8k3dl2tNJYROMCA7iIyODo",
+				authDomain: "eye-room.firebaseapp.com",
+				databaseURL: "https://eye-room.firebaseio.com",
+				projectId: "eye-room",
+				storageBucket: "eye-room.appspot.com",
+				messagingSenderId: "1080931423814"
+			};
+			firebase.initializeApp(config);
+		
+			var userId = firebase.auth().currentUser.uid;
+			
+			return firebase.database().ref('/images/' + userId).limit(1).once("child_added", function (snapshot) {
+				var imageBytes = snapshot.val();
+			});
+			window.alert(imageBytes);
+		</script>
 	</body>
 
 </html>
