@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-	<head>
+	<center><head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>eyeRoom Demo</title>
@@ -12,11 +12,11 @@
 
 	<body>
 		<h1>eyeRoom Demo</h1>
-		<p>Hi ya!</p>
+		<p>Using opencv, running on a raspberry pi with a webcam, we capture images of a room and determine the number of individuals in the room. The image of the room and the meta data is then pushed to a firebase server. A telegram bot can be used to access the server and report to users the status of the room.</p>
 		<table id="stuff">
 
 		</table>
-	
+	</center>
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -38,14 +38,14 @@
 			var db = firebase.database();
 			db.ref('images/').limitToLast(5).on('child_added', function(snapshot) {
 				a = snapshot.val();
-				img_text = '<th><img id="" src="data:image/png;base64,' + a.code +'" height="180" width="320"/></th></tr>'
+				img_text = '<tr><th><img id="" src="data:image/png;base64,' + a.code +'" height="180" width="320" style="border: 2px solid black"/></th></tr>'
 				row_text = '<tr><th>Number of people: </th><th>' + a.number.toString() + '</th></tr>'
 				row_text += '<tr><th>Number of faces: </th><th>' + a.faces.toString() + '</th></tr>'
 				row_text += '<tr><th>Number of lower bodies: </th><th>' + a.lower.toString() + '</th></tr>'
 				row_text += '<tr><th>Number of upper bodies: </th><th>' + a.upper.toString() + '</th></tr>'
-				row_text += '<tr><th>Number of full bodies: </th><th>' + a.full.toString() + '</th>'
+				row_text += '<tr><th>Number of full bodies: </th><th>' + a.full.toString() + '</th></tr>'
 
-				$("#stuff").prepend('<tr>' + img_text + row_text + '</tr>')
+				$("#stuff").prepend(img_text + row_text)
 
 			})
 		</script>
