@@ -32,7 +32,7 @@
 			firebase.initializeApp(config);
 			var db = firebase.database();
 
-			db.child('images/').limitToLast(1).on('child_added', function(snapshot) {
+			db.ref('images/').limitToLast(1).on('child_added', function(snapshot) {
 				console.log(snapshot)
 			})
 		</script>
