@@ -30,13 +30,20 @@
 				messagingSenderId: "1080931423814"
 			};
 			firebase.initializeApp(config);
-		
-			var userId = firebase.auth().currentUser.uid;
+
+			// Import Admin SDK
+			var admin = require("firebase-admin");
 			
-			return firebase.database().ref('/images/' + userId).limit(1).once("child_added", function (snapshot) {
-				var imageBytes = snapshot.val();
+			// Get a database reference to our posts
+			var db = admin.database();
+			var ref = db.ref("server/saving-data/fireblog/posts");
+
+			// Attach an asynchronous callback to read the data at our posts reference
+			ref.on("value", function(snapshot) {
+				console.log(snapshot.val());
+				}, function (errorObject) {
+				console.log("The read failed: " + errorObject.code);
 			});
-			window.alert(imageBytes);
 		</script>
 	</body>
 
