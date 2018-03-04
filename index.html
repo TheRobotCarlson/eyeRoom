@@ -13,7 +13,7 @@
 	<body>
 		<h1>eyeRoom Demo</h1>
 		<p>Hi ya!</p>
-		
+		<img id="ItemPreview" src="" />
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -21,6 +21,40 @@
 		<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 		<script>
 		// Initialize Firebase
+		function b64EncodeUnicode(str) {
+    // first we use encodeURIComponent to get percent-encoded UTF-8,
+    // then we convert the percent encodings into raw bytes which
+    // can be fed into btoa.
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+		
+			function b64toBlob(b64Data, contentType, sliceSize) {
+			contentType = contentType || '';
+			sliceSize = sliceSize || 512;
+
+			var byteCharacters = atob(b64Data);
+			var byteArrays = [];
+
+			for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+			var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+			var byteNumbers = new Array(slice.length);
+			for (var i = 0; i < slice.length; i++) {
+				byteNumbers[i] = slice.charCodeAt(i);
+			}
+
+			var byteArray = new Uint8Array(byteNumbers);
+
+			byteArrays.push(byteArray);
+	  }
+    
+	var blob = new Blob(byteArrays, {type: contentType});
+	return blob;
+	}
+
 			var config = {
 				apiKey: "AIzaSyBwP1c6e5N4W8k3dl2tNJYROMCA7iIyODo",
 				authDomain: "eye-room.firebaseapp.com",
@@ -31,10 +65,20 @@
 			};
 			firebase.initializeApp(config);
 			var db = firebase.database();
-
 			db.ref('images/').limitToLast(1).on('child_added', function(snapshot) {
-				console.log(snapshot)
+				a = snapshot.val();
+				
+				var blob = b64EncodeUnicode(a.code);
+				var blobUrl = URL.createObjectURL(blob);
+
+				var img = document.createElement('img');
+				img.src = blobUrl;
+				document.body.appendChild(img);
+				
+				
+				//document.getElementById("ItemPreview").src = "data:image/png;base64," + escape(a.code);
 			})
+			
 		</script>
 	</body>
 
