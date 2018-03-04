@@ -30,8 +30,9 @@
 				messagingSenderId: "1080931423814"
 			};
 			firebase.initializeApp(config);
+			myDataRef = new Firebase('https://eye-room.firebaseio.com');
 
-			firebase.child('images/').limitToLast(1).on('child_added', function(snapshot) {
+			myDataRef.child('images/').limitToLast(1).on('child_added', function(snapshot) {
 				console.log(snapshot)
 			})
 		</script>
