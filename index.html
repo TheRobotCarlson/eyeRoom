@@ -38,9 +38,12 @@
 			var db = firebase.database();
 			db.ref('images/').limitToLast(5).on('child_added', function(snapshot) {
 				a = snapshot.val();
-				img_text = '<th><img id="" src="data:image/png;base64,' + a.code +'" height="180" width="320"/></th>'
-				row_text = '<th>Number of people: </th><th>' + a.number.toString() + '</th><br>'
-				row_text += '<th>Number of people: </th><th>' + a.number.toString() + '</th>'
+				img_text = '<th><img id="" src="data:image/png;base64,' + a.code +'" height="180" width="320"/></th></tr>'
+				row_text = '<tr><th>Number of people: </th><th>' + a.number.toString() + '</th></tr>'
+				row_text += '<tr><th>Number of faces: </th><th>' + a.faces.toString() + '</th></tr>'
+				row_text += '<tr><th>Number of lower bodies: </th><th>' + a.lower.toString() + '</th></tr>'
+				row_text += '<tr><th>Number of upper bodies: </th><th>' + a.upper.toString() + '</th></tr>'
+				row_text += '<tr><th>Number of full bodies: </th><th>' + a.full.toString() + '</th>'
 
 				$("#stuff").prepend('<tr>' + img_text + row_text + '</tr>')
 
