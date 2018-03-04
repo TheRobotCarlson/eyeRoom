@@ -30,7 +30,7 @@
 				messagingSenderId: "1080931423814"
 			};
 			firebase.initializeApp(config);
-			db = firebase.database();
+			var db = firebase.database();
 
 			db.child('images/').limitToLast(1).on('child_added', function(snapshot) {
 				console.log(snapshot)
