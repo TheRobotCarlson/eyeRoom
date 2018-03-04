@@ -32,7 +32,7 @@
 }
 		
 			function b64toBlob(b64Data, contentType, sliceSize) {
-			contentType = contentType || '';
+			//contentType = contentType || '';
 			sliceSize = sliceSize || 512;
 
 			var byteCharacters = atob(b64Data);
@@ -68,15 +68,16 @@
 			db.ref('images/').limitToLast(1).on('child_added', function(snapshot) {
 				a = snapshot.val();
 				
-				var blob = b64EncodeUnicode(a.code);
-				var blobUrl = window.webkitURL.createObjectURL(blob);
+				//var blob = b64toBlob(b64EncodeUnicode(a.code), 'image/png');
+				//blob.type = 'image/png'
+				//var blobUrl = window.URL.createObjectURL(blob);
 
-				var img = document.createElement('img');
-				img.src = blobUrl;
-				document.body.appendChild(img);
+				//var img = document.createElement('img');
+				// img.src = blobUrl;
+				// document.body.appendChild(img);
 				
-				
-				//document.getElementById("ItemPreview").src = "data:image/png;base64," + escape(a.code);
+				console.log(a.code)
+				document.getElementById("ItemPreview").src = 'data:image/png;base64,' + a.code;
 			})
 			
 		</script>
